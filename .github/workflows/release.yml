@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.23.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - name: Verify tag matches plugin version
+        run: test "${GITHUB_REF_NAME}" = "v$(jq -r .version plugin.json)"
+      - name: Build installable archive
+        run: |
+          mkdir -p _release/codex-runners
+          cp -R plugin.json mcp.json .mcp.json .codex-plugin assets dist skills README.md LICENSE PRIVACY.md TERMS.md _release/codex-runners/
+          cd _release
+          zip -r "codex-runners-${GITHUB_REF_NAME}.zip" codex-runners
+          shasum -a 256 "codex-runners-${GITHUB_REF_NAME}.zip" > "codex-runners-${GITHUB_REF_NAME}.zip.sha256"
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: spdx-json
+          output-file: _release/codex-runners-${{ github.ref_name }}.sbom.spdx.json
+      - name: Attest archive
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: _release/codex-runners-${{ github.ref_name }}.zip
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            _release/codex-runners-${{ github.ref_name }}.zip
+            _release/codex-runners-${{ github.ref_name }}.zip.sha256
+            _release/codex-runners-${{ github.ref_name }}.sbom.spdx.json

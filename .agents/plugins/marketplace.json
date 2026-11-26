@@ -1,0 +1,20 @@
+{
+  "name": "codex-runners",
+  "interface": {
+    "displayName": "Codex Runners"
+  },
+  "plugins": [
+    {
+      "name": "codex-runners",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

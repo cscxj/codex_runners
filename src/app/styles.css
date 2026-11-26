@@ -1,0 +1,451 @@
+:root {
+  font-family:
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  color: var(--color-text-primary, #171717);
+  background: var(--color-background-primary, #fff);
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  background: transparent;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button {
+  color: inherit;
+}
+
+.shell {
+  min-height: 100vh;
+  padding: 20px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.shell.empty {
+  display: grid;
+  place-items: center;
+  color: var(--color-text-secondary, #737373);
+}
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.topbar h1 {
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.topbar p {
+  color: var(--color-text-secondary, #737373);
+  margin: 5px 0 0;
+  font-size: 13px;
+}
+.title-row,
+.toolbar,
+.section-heading,
+.repo-editor-head,
+.settings-actions {
+  display: flex;
+  align-items: center;
+}
+.title-row {
+  gap: 9px;
+}
+.toolbar {
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.unread-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #2563eb;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #2563eb 16%, transparent);
+}
+
+.icon-button,
+.text-button,
+.secondary-button,
+.primary-button,
+.danger-text {
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background 120ms ease,
+    opacity 120ms ease;
+}
+.icon-button {
+  padding: 7px 10px;
+  background: var(--color-background-secondary, #f5f5f5);
+  font-size: 13px;
+}
+.icon-button:hover,
+.secondary-button:hover {
+  background: var(--color-background-tertiary, #e8e8e8);
+}
+.text-button,
+.danger-text {
+  background: transparent;
+  padding: 5px 7px;
+  font-size: 13px;
+}
+.text-button {
+  color: #2563eb;
+}
+.danger-text {
+  color: #dc2626;
+  margin-left: auto;
+}
+.secondary-button {
+  padding: 8px 11px;
+  background: var(--color-background-secondary, #f5f5f5);
+}
+.primary-button {
+  padding: 9px 14px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.pipeline-list,
+.events,
+.settings-section {
+  border: 1px solid var(--color-border-secondary, #e5e5e5);
+  border-radius: 13px;
+  overflow: hidden;
+  background: var(--color-background-primary, #fff);
+}
+.pipeline-row,
+.event-row {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--color-border-secondary, #e5e5e5);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-align: left;
+  cursor: pointer;
+}
+.pipeline-row:last-child,
+.event-row:last-child {
+  border-bottom: 0;
+}
+.pipeline-row {
+  min-height: 66px;
+  padding: 11px 14px;
+}
+.pipeline-row:hover,
+.event-row:hover {
+  background: var(--color-background-secondary, #f7f7f7);
+}
+.pipeline-main {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pipeline-name {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pipeline-meta,
+.pipeline-age,
+.event-time {
+  font-size: 12px;
+  color: var(--color-text-secondary, #737373);
+}
+.pipeline-age {
+  white-space: nowrap;
+}
+.chevron {
+  font-size: 22px;
+  color: var(--color-text-tertiary, #a3a3a3);
+}
+.status-icon {
+  width: 23px;
+  height: 23px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 13px;
+}
+.status-icon.running {
+  color: #2563eb;
+  background: #dbeafe;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+.status-icon.queued {
+  color: #a16207;
+  background: #fef3c7;
+}
+.status-icon.success {
+  color: #15803d;
+  background: #dcfce7;
+}
+.status-icon.failed,
+.status-icon.cancelled {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.empty-card {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary, #737373);
+  text-align: center;
+  padding: 24px;
+}
+.empty-card.compact {
+  min-height: 90px;
+}
+.empty-card h2 {
+  font-size: 15px;
+  color: var(--color-text-primary, #171717);
+  margin: 9px 0 2px;
+}
+.empty-card p {
+  margin: 0;
+  font-size: 13px;
+}
+.empty-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 18px;
+}
+
+.events {
+  margin-top: 18px;
+}
+.section-heading {
+  min-height: 48px;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--color-border-secondary, #e5e5e5);
+}
+.section-heading h2 {
+  font-size: 13px;
+  margin: 0;
+}
+.event-row {
+  min-height: 49px;
+  padding: 9px 14px;
+}
+.event-row.unread {
+  background: color-mix(in srgb, #2563eb 6%, transparent);
+}
+.event-name {
+  flex: 1;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.notice-list {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.notice,
+.error-banner {
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+  border-radius: 9px;
+  padding: 10px 12px;
+  font-size: 12px;
+}
+.error-banner {
+  position: sticky;
+  bottom: 12px;
+  margin-top: 12px;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+}
+footer {
+  color: var(--color-text-tertiary, #a3a3a3);
+  text-align: right;
+  font-size: 11px;
+  padding: 12px 2px;
+}
+
+.settings-section {
+  margin-bottom: 16px;
+  padding-bottom: 2px;
+}
+.repo-editor {
+  padding: 14px;
+  border-bottom: 1px solid var(--color-border-secondary, #e5e5e5);
+}
+.repo-editor:last-child {
+  border-bottom: 0;
+}
+.repo-editor-head {
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.provider-badge {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 5px;
+  padding: 4px 6px;
+}
+.provider-badge.github {
+  background: #e5e7eb;
+  color: #111827;
+}
+.provider-badge.gitlab {
+  background: #ffedd5;
+  color: #9a3412;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+label {
+  display: grid;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--color-text-secondary, #737373);
+}
+input,
+select {
+  width: 100%;
+  border: 1px solid var(--color-border-primary, #d4d4d4);
+  border-radius: 8px;
+  padding: 8px 9px;
+  color: var(--color-text-primary, #171717);
+  background: var(--color-background-primary, #fff);
+  outline: none;
+}
+input:focus,
+select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px color-mix(in srgb, #2563eb 16%, transparent);
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-primary, #171717);
+}
+.checkbox-label.small {
+  font-size: 12px;
+}
+.checkbox-label input {
+  width: 15px;
+  height: 15px;
+}
+.grid-settings {
+  padding: 14px;
+  display: grid;
+  gap: 13px;
+}
+.grid-settings > label:first-child {
+  max-width: 280px;
+}
+.settings-actions {
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--color-text-secondary, #737373);
+  font-size: 12px;
+  padding: 3px 0 16px;
+}
+.test-message {
+  color: var(--color-text-secondary, #737373);
+  font-size: 12px;
+  margin: 0;
+  padding: 8px 14px 12px;
+}
+
+@media (max-width: 600px) {
+  .shell {
+    padding: 14px;
+  }
+  .topbar {
+    align-items: center;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .pipeline-age {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: var(--color-text-primary, #f5f5f5);
+    background: var(--color-background-primary, #161616);
+  }
+  .pipeline-list,
+  .events,
+  .settings-section {
+    background: var(--color-background-primary, #161616);
+    border-color: var(--color-border-secondary, #333);
+  }
+  .pipeline-row,
+  .event-row,
+  .section-heading,
+  .repo-editor {
+    border-color: var(--color-border-secondary, #333);
+  }
+  .empty-card h2 {
+    color: var(--color-text-primary, #f5f5f5);
+  }
+  input,
+  select {
+    color: var(--color-text-primary, #f5f5f5);
+    background: var(--color-background-primary, #161616);
+    border-color: var(--color-border-primary, #444);
+  }
+  .provider-badge.github {
+    background: #374151;
+    color: #f9fafb;
+  }
+}
