@@ -32,7 +32,7 @@ jobs:
       - name: Verify committed distribution
         run: git diff --exit-code -- dist
       - name: Upload coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage
           path: coverage/
