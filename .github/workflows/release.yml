@@ -41,7 +41,7 @@ jobs:
           format: spdx-json
           output-file: _release/codex-runners-${{ github.ref_name }}.sbom.spdx.json
       - name: Attest archive
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: _release/codex-runners-${{ github.ref_name }}.zip
       - name: Create GitHub Release
